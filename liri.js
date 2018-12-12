@@ -1,6 +1,8 @@
 require("dotenv").config();
 var Spotify = require('node-spotify-api');
 var axios = require("axios");
+var moment = require('moment');
+
 
 var commands = process.argv[2];
 
@@ -19,8 +21,12 @@ switch (commands) {
 
         axios.get(queryUrl).then(
             function (response) {
-                console.log(JSON.stringify(response.data[1].offers, null, 2));
-                console.log(queryUrl);
+                console.log("\n Name of the concert: " + response.data[1].venue.name);
+                
+                console.log("\n Location of the concert: " + response.data[1].venue.country + ", " + response.data[1].venue.city);
+
+                console.log("\n Concert date: " + moment( response.data[1].datetime).format( "MM-DD-YYYY"));
+
             }
         )
 
